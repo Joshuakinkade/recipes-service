@@ -1,0 +1,116 @@
+openapi: "3.0.0"
+info:
+  title: "Recipes Service"
+  version: "1.0.0"
+  description: "A simple API to manage recipes"
+paths:
+  /recipes:
+      get:
+        summary: "Get a list of recipes matching the search criteria"
+        parameters:
+          - name: "page"
+            in: "query"
+            description: "The page number"
+            required: false
+            schema:
+              type: "integer"
+        responses:
+          200:
+            description: "A list of recipes"
+            content:
+              application/json:
+                schema:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/Recipe"
+      post:
+        summary: "Create a new recipe"
+        requestBody: 
+          $ref: "#/components/requestBodies/Recipe"
+        responses:
+          201:
+            description: "The recipe was created"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Recipe"
+          400:
+            description: "Invalid input"
+  /recipes/:recipeId:
+    get:
+      summary: "Get a recipe by ID"
+      parameters:
+        - name: "recipeId"
+          in: "path"
+          description: "The ID of the recipe"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        200:
+          description: "The recipe"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Recipe"
+        404:
+          description: "Recipe not found"
+    put:
+      summary: "Update a recipe"
+      parameters:
+        - name: "recipeId"
+          in: "path"
+          description: "The ID of the recipe"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      requestBody: 
+        $ref: "#/components/requestBodies/Recipe"
+      responses:
+        200:
+          description: "The recipe was updated"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Recipe"
+        404:
+          description: "Recipe not found"
+    delete:
+      summary: "Delete a recipe"
+      parameters:
+        - name: "recipeId"
+          in: "path"
+          description: "The ID of the recipe"
+          required: true
+          schema:
+            type: "string"
+            format: "uuid"
+      responses:
+        204:
+          description: "The recipe was deleted"
+        404:
+          description: "Recipe not found"
+components:
+  requestBodies:
+    Recipe:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Recipe"
+  schemas:
+    Recipe:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        name:
+          type: "string"
+        description:
+          type: "string"
+        ingredients:
+          type: "array"
+          items:
+            type: "string"

@@ -7,12 +7,12 @@ import (
 )
 
 type RecipeSummary struct {
-	ID         uuid.UUID `json:"id"`
-	Name       string    `json:"name"`
-	Descrption string    `json:"description"`
-	MainPhoto  string    `json:"mainPhoto"`
-	Created    time.Time `json:"created"`
-	Updated    time.Time `json:"updated"`
+	ID          uuid.UUID `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	MainPhoto   string    `json:"mainPhoto"`
+	Created     time.Time `json:"created"`
+	Updated     time.Time `json:"updated"`
 }
 
 type RecipeDetails struct {
